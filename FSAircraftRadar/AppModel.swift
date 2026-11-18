@@ -52,13 +52,13 @@ final class AppModel: ObservableObject {
     private var lastAttempt: Date? = nil
 
     init() {
+        var initial = AppSettings()
         if let data = UserDefaults.standard.data(forKey: settingsKey),
            let saved = try? JSONDecoder().decode(AppSettings.self, from: data) {
-            settings = saved
-        } else {
-            settings = AppSettings()
+            initial = saved
         }
-        sort = settings.defaultSort
+        settings = initial
+        sort = initial.defaultSort
         showChangelogIfNew()
     }
 
